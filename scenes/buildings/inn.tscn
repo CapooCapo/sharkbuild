@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House2.png" id="1_1bjhf"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_qyow6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eovmi"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhyt2"]
+size = Vector2(80, 64)
+
+[node name="Inn" type="Node2D" unique_id=337058324]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1530886292]
+position = Vector2(0, -96)
+texture = ExtResource("1_1bjhf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=699924517]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1497196646]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_eovmi")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=1256785484]
+script = ExtResource("2_qyow6")
+interaction_text = "Inn Coming Soon"
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=2029799587]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_vhyt2")

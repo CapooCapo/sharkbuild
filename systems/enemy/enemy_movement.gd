@@ -1,0 +1,66 @@
+class_name EnemyMovement
+extends Node
+
+## Manages physical movement for the Enemy.
+## Applies acceleration, friction, and move_and_slide.
+## Does NOT think or pick targets.
+
+@export var character_body: CharacterBody2D
+@export var knockback: EnemyKnockback
+@export var nav_agent: NavigationAgent2D
+
+var _speed: float = 70.0
+var _acceleration: float = 800.0
+var _friction: float = 1200.0
+
+var _wants_to_move: bool = false
+var spawn_position: Vector2 = Vector2.ZERO
+
+func _ready() -> void:
+	if character_body:
+		spawn_position = character_body.global_position
+
+func set_speed(speed: float) -> void:
+	_speed = speed
+
+func move_towards(target_position: Vector2) -> void:
+	if not character_body or not nav_agent:
+		return
+	nav_agent.target_position = target_position
+	_wants_to_move = true
+
+func stop() -> void:
+	_wants_to_move = false
+
+func get_velocity() -> Vector2:
+	if character_body:
+		return character_body.velocity
+	return Vector2.ZERO
+
+func _physics_process(delta: float) -> void:
+	if not character_body:
+		return
+		
+	# Yield physics to Knockback if active
+	if knockback and knockback.is_active():
+		return
+		
+	if _wants_to_move and nav_agent:
+		print("--- ENEMY MOVEMENT DEBUG ---")
+		print("Target Pos: ", nav_agent.target_position)
+		print("Is Nav Finished: ", nav_agent.is_navigation_finished())
+		print("Is Target Reachable: ", nav_agent.is_target_reachable())
+		print("Next Path Pos: ", nav_agent.get_next_path_position())
+
+	if _wants_to_move and nav_agent:
+		print("[ENEMY_DEBUG] Has Nav Path: ", not nav_agent.is_navigation_finished(), " My Pos: ", character_body.global_position, " Target: ", nav_agent.target_position, " Next Path: ", nav_agent.get_next_path_position())
+
+	if _wants_to_move and nav_agent and not nav_agent.is_navigation_finished():
+		var next_path_pos = nav_agent.get_next_path_position()
+		var target_direction = (next_path_pos - character_body.global_position).normalized()
+		var target_velocity = target_direction * _speed
+		character_body.velocity = character_body.velocity.move_toward(target_velocity, _acceleration * delta)
+	else:
+		character_body.velocity = character_body.velocity.move_toward(Vector2.ZERO, _friction * delta)
+		
+	character_body.move_and_slide()

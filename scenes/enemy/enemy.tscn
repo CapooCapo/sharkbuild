@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://bfx67041vh45g"]
+
+[ext_resource type="Script" uid="uid://cowncinx0k8fs" path="res://systems/enemy/enemy.gd" id="1_enemy"]
+[ext_resource type="Script" uid="uid://d2bc46hx0uhdw" path="res://systems/enemy/enemy_direction.gd" id="2_edir"]
+[ext_resource type="Script" uid="uid://c3kppr6dajp7p" path="res://systems/enemy/enemy_animation.gd" id="3_eanim"]
+[ext_resource type="Script" uid="uid://cog7w1uwkhjvb" path="res://systems/enemy/enemy_state_machine.gd" id="4_esm"]
+[ext_resource type="Resource" uid="uid://ddnl4wnp1kgj" path="res://data/enemy_data.tres" id="5_edata"]
+[ext_resource type="Script" uid="uid://csg34rnkuwqxa" path="res://systems/combat/hurt_box.gd" id="6_hurtbox"]
+[ext_resource type="Script" uid="uid://c8a510rq2byu3" path="res://systems/combat/hit_box.gd" id="7_hitbox"]
+[ext_resource type="Script" uid="uid://cxab32sd" path="res://systems/enemy/enemy_sensor.gd" id="X_sensor"]
+[ext_resource type="Script" uid="uid://cycd45sf" path="res://systems/enemy/enemy_ai.gd" id="X_ai"]
+[ext_resource type="Script" uid="uid://xmov12" path="res://systems/enemy/enemy_movement.gd" id="X_move"]
+[ext_resource type="Script" uid="uid://xcool123" path="res://systems/enemy/enemy_cooldown.gd" id="X_cool"]
+[ext_resource type="Script" uid="uid://xknock456" path="res://systems/enemy/enemy_knockback.gd" id="X_knock"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sensor"]
+radius = 160.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hurt"]
+radius = 40.0
+height = 120.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbhyu"]
+radius = 41.0
+height = 118.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.15, 0.15, 0.15, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.8, 0.2, 0.2, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1629572122]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_enemy")
+enemy_data = ExtResource("5_edata")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1653905926]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1391493155]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=911411925]
+
+[node name="EnemyDirection" type="Node" parent="." unique_id=6892907 node_paths=PackedStringArray("character_body")]
+script = ExtResource("2_edir")
+character_body = NodePath("..")
+
+[node name="EnemyAnimation" type="Node2D" parent="." unique_id=601993557 node_paths=PackedStringArray("character_body", "animated_sprite", "enemy_direction", "state_machine")]
+script = ExtResource("3_eanim")
+character_body = NodePath("..")
+animated_sprite = NodePath("../AnimatedSprite2D")
+enemy_direction = NodePath("../EnemyDirection")
+state_machine = NodePath("../EnemyStateMachine")
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=1772447194]
+script = ExtResource("4_esm")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1349978165]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("6_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1264215501]
+shape = SubResource("CapsuleShape2D_hurt")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1019004377]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("7_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1926570689]
+shape = SubResource("CapsuleShape2D_nbhyu")
+disabled = true
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=527018148]
+offset_left = -16.0
+offset_top = -80.0
+offset_right = 16.0
+offset_bottom = -76.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+value = 100.0
+show_percentage = false
+
+[node name="EnemySensor" type="Area2D" parent="." unique_id=987654321]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("X_sensor")
+enemy_data = ExtResource("5_edata")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySensor" unique_id=987654322]
+shape = SubResource("CircleShape2D_sensor")
+
+[node name="EnemyMovement" type="Node" parent="." unique_id=987654330 node_paths=PackedStringArray("character_body", "knockback", "nav_agent")]
+script = ExtResource("X_move")
+character_body = NodePath("..")
+knockback = NodePath("../EnemyKnockback")
+nav_agent = NodePath("../NavigationAgent2D")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=987654340]
+
+[node name="EnemyKnockback" type="Node" parent="." unique_id=987654341 node_paths=PackedStringArray("character_body")]
+script = ExtResource("X_knock")
+character_body = NodePath("..")
+
+[node name="EnemyCooldown" type="Node" parent="." unique_id=987654331]
+script = ExtResource("X_cool")
+
+[node name="EnemyAI" type="Node2D" parent="." unique_id=987654323 node_paths=PackedStringArray("sensor", "state_machine", "enemy_direction", "movement", "cooldown")]
+script = ExtResource("X_ai")
+sensor = NodePath("../EnemySensor")
+state_machine = NodePath("../EnemyStateMachine")
+enemy_direction = NodePath("../EnemyDirection")
+movement = NodePath("../EnemyMovement")
+enemy_data = ExtResource("5_edata")
+cooldown = NodePath("../EnemyCooldown")

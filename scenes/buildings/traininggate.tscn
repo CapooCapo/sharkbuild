@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Archery.png" id="1_knxpa"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_sfplo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3811w"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yue6b"]
+size = Vector2(80, 64)
+
+[node name="TrainingGate" type="Node2D" unique_id=257013122]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=732421757]
+position = Vector2(0, -128)
+texture = ExtResource("1_knxpa")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=906069071]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1292415507]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_3811w")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=1591199451]
+script = ExtResource("2_sfplo")
+interaction_text = "Training Available Soon"
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=1242905110]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_yue6b")

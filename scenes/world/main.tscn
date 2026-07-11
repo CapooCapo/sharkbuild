@@ -1,0 +1,70 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://systems/world/world_manager.gd" id="1_j0vxu"]
+[ext_resource type="Resource" path="res://data/world_data.tres" id="2_ggrwn"]
+[ext_resource type="Resource" path="res://data/village_data.tres" id="3_85j56"]
+[ext_resource type="Script" path="res://systems/player/spawn_manager.gd" id="4_qip8x"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="5_oaya2"]
+[ext_resource type="Resource" path="res://data/player_data.tres" id="6_wcbaq"]
+[ext_resource type="Script" path="res://systems/camera/camera_manager.gd" id="7_r1kpy"]
+[ext_resource type="Script" path="res://systems/navigation/navigation_generator.gd" id="8_i5mec"]
+[ext_resource type="Script" path="res://systems/rendering/terrain_renderer.gd" id="9_5bu78"]
+
+[sub_resource type="TileSet" id="TileSet_pibea"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+navigation_layer_0/layers = 1
+
+[node name="Main" type="Node" unique_id=1250807693]
+
+[node name="WorldManager" type="Node" parent="." unique_id=1577189109 node_paths=PackedStringArray("terrain_renderer", "navigation_generator")]
+script = ExtResource("1_j0vxu")
+world_data = ExtResource("2_ggrwn")
+village_data = ExtResource("3_85j56")
+terrain_renderer = NodePath("../TerrainRenderer")
+navigation_generator = NodePath("../NavigationGenerator")
+
+[node name="SpawnManager" type="Node" parent="." unique_id=1672962327 node_paths=PackedStringArray("characters_layer")]
+script = ExtResource("4_qip8x")
+characters_layer = NodePath("../Characters")
+player_scene = ExtResource("5_oaya2")
+player_data = ExtResource("6_wcbaq")
+
+[node name="CameraManager" type="Node" parent="." unique_id=183808467 node_paths=PackedStringArray("camera_2d")]
+script = ExtResource("7_r1kpy")
+camera_2d = NodePath("../MainCamera")
+
+[node name="World" type="Node2D" parent="." unique_id=1765407206]
+
+[node name="NavigationLayer" type="NavigationRegion2D" parent="World" unique_id=1013977084]
+
+[node name="GroundLayer" type="TileMapLayer" parent="World/NavigationLayer" unique_id=1446918166]
+tile_set = SubResource("TileSet_pibea")
+
+[node name="RoadLayer" type="TileMapLayer" parent="World/NavigationLayer" unique_id=111597738]
+tile_set = SubResource("TileSet_pibea")
+
+[node name="ObjectLayer" type="TileMapLayer" parent="World/NavigationLayer" unique_id=926460579]
+tile_set = SubResource("TileSet_pibea")
+
+[node name="DecorationLayer" type="TileMapLayer" parent="World/NavigationLayer" unique_id=813110146]
+tile_set = SubResource("TileSet_pibea")
+
+[node name="NavigationGenerator" type="Node" parent="." unique_id=953020201 node_paths=PackedStringArray("navigation_region")]
+script = ExtResource("8_i5mec")
+navigation_region = NodePath("../World/NavigationLayer")
+
+[node name="TerrainRenderer" type="Node" parent="." unique_id=2134917475 node_paths=PackedStringArray("ground_layer", "road_layer", "object_layer", "decoration_layer")]
+script = ExtResource("9_5bu78")
+ground_layer = NodePath("../World/NavigationLayer/GroundLayer")
+road_layer = NodePath("../World/NavigationLayer/RoadLayer")
+object_layer = NodePath("../World/NavigationLayer/ObjectLayer")
+decoration_layer = NodePath("../World/NavigationLayer/DecorationLayer")
+
+[node name="Characters" type="Node2D" parent="." unique_id=180653005]
+
+[node name="MainCamera" type="Camera2D" parent="." unique_id=67371663]
+
+[node name="Effects" type="Node2D" parent="." unique_id=2028507422]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1236616606]

@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Terrain/Decorations/Rocks/Rock4.png" id="1_da1q7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n7diy"]
+radius = 16.0
+
+[node name="Rock4" type="Node2D" unique_id=538977749]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1780730884]
+position = Vector2(0, -32)
+texture = ExtResource("1_da1q7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=281585291]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=333104849]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_n7diy")

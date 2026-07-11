@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bt1mqf84tbu2p"]
+
+[ext_resource type="Script" uid="uid://bf0owu1wgtjn5" path="res://systems/player/player.gd" id="1_gmlin"]
+[ext_resource type="Script" uid="uid://djh4cf81judhf" path="res://systems/player/player_movement.gd" id="2_lvxji"]
+[ext_resource type="Script" uid="uid://dc8dx1moiov7f" path="res://systems/interaction/interactor.gd" id="3_p47bc"]
+[ext_resource type="Script" uid="uid://4237oyk4x2w0" path="res://systems/player/player_direction.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://cmsvsxvkp241k" path="res://systems/player/player_animation.gd" id="5_75vfm"]
+[ext_resource type="Script" uid="uid://d3grqwqxpen2x" path="res://systems/player/player_state_machine.gd" id="6_0owmy"]
+[ext_resource type="Resource" path="res://data/player_data.tres" id="7_qek5x"]
+[ext_resource type="Script" uid="uid://c8a510rq2byu3" path="res://systems/combat/hit_box.gd" id="8_hitbox"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_75vfm"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0owmy"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qek5x"]
+radius = 40.0
+height = 120.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
+radius = 41.0
+height = 118.0
+
+[node name="Player" type="CharacterBody2D" unique_id=623547615 node_paths=PackedStringArray("interactor") groups=["player"]]
+z_index = 10
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_gmlin")
+interactor = NodePath("Interactor")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890113109]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_75vfm")
+
+[node name="PlayerMovement" type="Node" parent="." unique_id=576234216 node_paths=PackedStringArray("character_body", "state_machine", "player_direction")]
+script = ExtResource("2_lvxji")
+character_body = NodePath("..")
+state_machine = NodePath("../PlayerStateMachine")
+player_direction = NodePath("../PlayerDirection")
+
+[node name="Interactor" type="Area2D" parent="." unique_id=2111192856]
+script = ExtResource("3_p47bc")
+
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="Interactor" unique_id=1964994002]
+shape = SubResource("CircleShape2D_0owmy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=292133811]
+position = Vector2(31, -25)
+
+[node name="PlayerDirection" type="Node" parent="." unique_id=2029471379 node_paths=PackedStringArray("character_body")]
+script = ExtResource("4_p47bc")
+character_body = NodePath("..")
+
+[node name="PlayerAnimation" type="Node" parent="." unique_id=325853109 node_paths=PackedStringArray("character_body", "animated_sprite", "player_direction", "state_machine")]
+script = ExtResource("5_75vfm")
+character_body = NodePath("..")
+animated_sprite = NodePath("../AnimatedSprite2D")
+player_direction = NodePath("../PlayerDirection")
+state_machine = NodePath("../PlayerStateMachine")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=330580815]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1165619254]
+position = Vector2(0, -25)
+shape = SubResource("CapsuleShape2D_qek5x")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1984075736]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("8_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=765334650]
+position = Vector2(0, -25)
+shape = SubResource("CapsuleShape2D_5gtgg")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1386853705]
+
+[node name="PlayerStateMachine" type="Node" parent="." unique_id=883677411 node_paths=PackedStringArray("character_body")]
+script = ExtResource("6_0owmy")
+character_body = NodePath("..")
+player_data = ExtResource("7_qek5x")

@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Castle.png" id="1_yxq7m"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_vsdpd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_066d3"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_887oe"]
+size = Vector2(80, 64)
+
+[node name="DungeonGate" type="Node2D" unique_id=1167403316]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=66855554]
+position = Vector2(0, -128)
+texture = ExtResource("1_yxq7m")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1540517778]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1795454390]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_066d3")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=43299208]
+script = ExtResource("2_vsdpd")
+interaction_text = "Dungeon Locked"
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=212420342]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_887oe")

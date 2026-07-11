@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://0eui5xlhxjbk"]
+
+[ext_resource type="Script" path="res://systems/world/world_manager.gd" id="1_o6xl0"]
+[ext_resource type="Resource" path="res://data/world_data.tres" id="2_tipki"]
+[ext_resource type="Resource" path="res://data/village_data.tres" id="3_85g3d"]
+[ext_resource type="Script" path="res://systems/player/spawn_manager.gd" id="4_choun"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="5_ya4ey"]
+[ext_resource type="Resource" path="res://data/player_data.tres" id="6_eb6dy"]
+[ext_resource type="Script" path="res://systems/rendering/terrain_renderer.gd" id="7_trceg"]
+
+[node name="Main" type="Node" unique_id=580275351]
+
+[node name="WorldManager" type="Node" parent="." unique_id=438656318 node_paths=PackedStringArray("terrain_renderer")]
+script = ExtResource("1_o6xl0")
+world_data = ExtResource("2_tipki")
+village_data = ExtResource("3_85g3d")
+terrain_renderer = NodePath("../World/TerrainRenderer")
+
+[node name="SpawnManager" type="Node" parent="." unique_id=628951891 node_paths=PackedStringArray("characters_layer")]
+script = ExtResource("4_choun")
+characters_layer = NodePath("../Characters")
+player_scene = ExtResource("5_ya4ey")
+player_data = ExtResource("6_eb6dy")
+
+[node name="World" type="Node2D" parent="." unique_id=1031051641]
+
+[node name="GroundLayer" type="TileMapLayer" parent="World" unique_id=1880896294]
+
+[node name="RoadLayer" type="TileMapLayer" parent="World" unique_id=1482258362]
+
+[node name="ObjectLayer" type="TileMapLayer" parent="World" unique_id=472537574]
+
+[node name="DecorationLayer" type="TileMapLayer" parent="World" unique_id=214041892]
+
+[node name="TerrainRenderer" type="Node" parent="World" unique_id=145059687 node_paths=PackedStringArray("ground_layer")]
+script = ExtResource("7_trceg")
+ground_layer = NodePath("../GroundLayer")
+
+[node name="Characters" type="Node2D" parent="." unique_id=583037554]
+
+[node name="Effects" type="Node2D" parent="." unique_id=1619737887]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1437710928]

@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House1.png" id="1_rxi8j"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_o6777"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph4jh"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_da1tl"]
+size = Vector2(80, 64)
+
+[node name="Merchant" type="Node2D" unique_id=611563390]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1418249104]
+position = Vector2(0, -96)
+texture = ExtResource("1_rxi8j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=507321642]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=75633988]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_ph4jh")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=337049802]
+script = ExtResource("2_o6777")
+interaction_text = "Shop Coming Soon"
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=341620896]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_da1tl")

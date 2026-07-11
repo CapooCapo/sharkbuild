@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c3rsad85wlgix"]
+
+[ext_resource type="Texture2D" uid="uid://b5jk68a07ctnj" path="res://assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Idle.png" id="1_a2vu6"]
+[ext_resource type="Script" uid="uid://bmoukyfuukl66" path="res://systems/interaction/interactable.gd" id="2_11n16"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pv1vw"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aujw8"]
+radius = 24.0
+
+[node name="NPC_Warrior" type="CharacterBody2D" unique_id=589280526]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1836785143]
+position = Vector2(32, -25)
+texture = ExtResource("1_a2vu6")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=91650423]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=684490269]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_pv1vw")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=1599053557]
+script = ExtResource("2_11n16")
+interaction_text = "I am a Warrior."
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=516776787]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_aujw8")

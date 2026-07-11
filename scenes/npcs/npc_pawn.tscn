@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bpnsjm7vptxve"]
+
+[ext_resource type="Texture2D" uid="uid://chuwpskeqcm30" path="res://assets/Tiny Swords (Free Pack)/Units/Blue Units/Pawn/Pawn_Idle.png" id="1_5iv7i"]
+[ext_resource type="Script" uid="uid://bmoukyfuukl66" path="res://systems/interaction/interactable.gd" id="2_bqvj6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tch7e"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1l21"]
+radius = 24.0
+
+[node name="NPC_Pawn" type="CharacterBody2D" unique_id=1786806480]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1031395501]
+position = Vector2(31, -22)
+texture = ExtResource("1_5iv7i")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=378843644]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854568499]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_tch7e")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=171173929]
+script = ExtResource("2_bqvj6")
+interaction_text = "I am a simple Pawn."
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=960028541]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_n1l21")

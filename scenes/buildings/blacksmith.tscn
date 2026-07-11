@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House3.png" id="1_2y5re"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_idtwx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdfs3"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jxrcl"]
+size = Vector2(80, 64)
+
+[node name="Blacksmith" type="Node2D" unique_id=826993056]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=369992577]
+position = Vector2(0, -96)
+texture = ExtResource("1_2y5re")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=335389643]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=379791541]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_pdfs3")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=922200525]
+script = ExtResource("2_idtwx")
+interaction_text = "Blacksmith Coming Soon"
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=1533235306]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_jxrcl")

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dfasf321s"]
+
+[ext_resource type="Script" uid="uid://dfs313dsa" path="res://ui/hud/exp_popup.gd" id="1_popup"]
+
+[node name="ExpPopup" type="Node2D"]
+z_index = 100
+script = ExtResource("1_popup")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -32.0
+offset_top = -12.0
+offset_right = 32.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "+25 EXP"
+horizontal_alignment = 1
+vertical_alignment = 1

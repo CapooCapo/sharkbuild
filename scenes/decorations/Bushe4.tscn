@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Terrain/Decorations/Bushes/Bushe4.png" id="1_h2pua"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x62ok"]
+radius = 16.0
+
+[node name="Bushe4" type="Node2D" unique_id=545738599]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=81124257]
+position = Vector2(0, -64)
+texture = ExtResource("1_h2pua")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1688337370]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1376348879]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_x62ok")

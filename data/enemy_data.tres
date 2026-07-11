@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://ddnl4wnp1kgj"]
+
+[ext_resource type="Script" uid="uid://b23jtri372tlj" path="res://data/enemy_data.gd" id="1_enemy"]
+
+[resource]
+script = ExtResource("1_enemy")

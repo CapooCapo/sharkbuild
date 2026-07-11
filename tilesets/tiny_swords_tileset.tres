@@ -1,0 +1,17 @@
+[gd_resource type="TileSet" format=3 uid="uid://bqt6r0lhsfbkb"]
+
+[ext_resource type="Texture2D" uid="uid://b83pi82nc18s2" path="res://assets/Tiny Swords (Free Pack)/Terrain/Tileset/Tilemap_color1.png" id="1_v70yt"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jotva"]
+texture = ExtResource("1_v70yt")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[resource]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_jotva")

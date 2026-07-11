@@ -1,0 +1,16 @@
+--- systems/enemy/enemy_movement.gd
++++ systems/enemy/enemy_movement.gd
+@@ -37,6 +37,13 @@
+ 	if knockback and knockback.is_active():
+ 		return
+ 		
++	if _wants_to_move and nav_agent:
++		print("[ENEMY_DEBUG] State: Wants to move")
++		print("[ENEMY_DEBUG] Has Nav Path: ", not nav_agent.is_navigation_finished())
++		print("[ENEMY_DEBUG] Next Path Pos: ", nav_agent.get_next_path_position())
++		print("[ENEMY_DEBUG] My Pos: ", character_body.global_position)
++		print("[ENEMY_DEBUG] Target Pos: ", nav_agent.target_position)
++
+ 	if _wants_to_move and nav_agent and not nav_agent.is_navigation_finished():
+ 		var next_path_pos = nav_agent.get_next_path_position()
+ 		var target_direction = (next_path_pos - character_body.global_position).normalized()

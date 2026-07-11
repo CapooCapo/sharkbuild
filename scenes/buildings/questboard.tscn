@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Monastery.png" id="1_fde1h"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_lbfsg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivp2t"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fttp3"]
+size = Vector2(80, 64)
+
+[node name="QuestBoard" type="Node2D" unique_id=524688037]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1710088788]
+position = Vector2(0, -160)
+texture = ExtResource("1_fde1h")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2001538063]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=589522261]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_ivp2t")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=1733821510]
+script = ExtResource("2_lbfsg")
+interaction_text = "Quest System Coming Soon"
+
+[node name="InteractionShape" type="CollisionShape2D" parent="Interactable" unique_id=388215867]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_fttp3")
