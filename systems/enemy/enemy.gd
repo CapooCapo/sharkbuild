@@ -77,6 +77,22 @@ func _setup_presentation() -> void:
 	popup_spawner.enemy_stats = stats
 	popup_spawner.spawn_position_node = self
 	add_child(popup_spawner)
+	
+	# Damage Presenter
+	var damage_presenter = DamagePresenter.new()
+	damage_presenter.name = "DamagePresenter"
+	damage_presenter.stats_node = stats
+	damage_presenter.entity_node = self
+	damage_presenter.damage_manager = get_tree().get_first_node_in_group("damage_manager")
+	add_child(damage_presenter)
+	
+	# Loot Dropper
+	var dropper = LootDropper.new()
+	dropper.name = "LootDropper"
+	dropper.enemy_stats = stats
+	if enemy_data and enemy_data.loot_table:
+		dropper.loot_table = enemy_data.loot_table
+	add_child(dropper)
 		
 func _on_died() -> void:
 	# Disable Collisions & Movement

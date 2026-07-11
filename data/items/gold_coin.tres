@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Terrain/Resources/Gold/Gold Resource/Gold_Resource.png" id="1_6rgyv"]
+[ext_resource type="Script" path="res://data/item_data.gd" id="2_eppxw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlmv2"]
+atlas = ExtResource("1_6rgyv")
+region = Rect2(0, 0, 128, 128)
+
+[resource]
+script = ExtResource("2_eppxw")
+name = "Gold Coin"
+icon = SubResource("AtlasTexture_mlmv2")

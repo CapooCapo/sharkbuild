@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="LootTable" format=3]
+
+[ext_resource type="Script" path="res://data/loot_entry.gd" id="1_hjjor"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Terrain/Resources/Gold/Gold Resource/Gold_Resource.png" id="2_hjjor"]
+[ext_resource type="Script" path="res://data/item_data.gd" id="3_kfuvq"]
+[ext_resource type="Script" path="res://systems/loot/loot_table.gd" id="4_bao2m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlmv2"]
+atlas = ExtResource("2_hjjor")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="Resource" id="Resource_hjjor"]
+script = ExtResource("3_kfuvq")
+name = "Gold Coin"
+icon = SubResource("AtlasTexture_mlmv2")
+
+[sub_resource type="Resource" id="Resource_npd5j"]
+script = ExtResource("1_hjjor")
+item = SubResource("Resource_hjjor")
+
+[resource]
+script = ExtResource("4_bao2m")
+entries = Array[ExtResource("1_hjjor")]([SubResource("Resource_npd5j")])

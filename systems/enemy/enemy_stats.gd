@@ -6,7 +6,7 @@ extends Node
 ## No mana, no stamina, no EXP progression.
 
 signal hp_changed(current: int, maximum: int)
-signal took_damage(amount: int)
+signal damage_taken(amount: int, type: int)
 signal healed(amount: int)
 signal died()
 
@@ -39,7 +39,7 @@ func _ready() -> void:
 	
 	hp_changed.emit(current_hp, max_hp)
 
-func damage(amount: int) -> void:
+func damage(amount: int, type: int = DamageType.Type.NORMAL) -> void:
 	if not alive or invulnerable:
 		return
 	
@@ -52,7 +52,7 @@ func damage(amount: int) -> void:
 	current_hp = maxi(current_hp - amount, 0)
 	
 	hp_changed.emit(current_hp, max_hp)
-	took_damage.emit(actual_damage)
+	damage_taken.emit(actual_damage, type)
 	
 	if current_hp <= 0:
 		alive = false

@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://systems/camera/camera_manager.gd" id="7_r1kpy"]
 [ext_resource type="Script" path="res://systems/navigation/navigation_generator.gd" id="8_i5mec"]
 [ext_resource type="Script" path="res://systems/rendering/terrain_renderer.gd" id="9_5bu78"]
+[ext_resource type="Script" path="res://systems/ui/floating_damage_manager.gd" id="10_fdman"]
 
 [sub_resource type="TileSet" id="TileSet_pibea"]
 physics_layer_0/collision_layer = 1
@@ -66,5 +67,8 @@ decoration_layer = NodePath("../World/NavigationLayer/DecorationLayer")
 [node name="MainCamera" type="Camera2D" parent="." unique_id=67371663]
 
 [node name="Effects" type="Node2D" parent="." unique_id=2028507422]
+
+[node name="FloatingDamageManager" type="Node" parent="." unique_id=987654321]
+script = ExtResource("10_fdman")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1236616606]

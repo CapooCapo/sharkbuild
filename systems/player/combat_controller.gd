@@ -14,6 +14,12 @@ func _process(_delta: float) -> void:
 	var sm = state_machine
 	var state = sm.current_state
 	
+	# Clean up HitBox if attack is interrupted
+	if state != sm.State.ATTACK and hit_box:
+		var col = hit_box.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if col and not col.disabled:
+			_set_hitbox_active(false)
+	
 	# Handle input for combat
 	if Input.is_action_just_pressed("attack"):
 		var cost = 15.0 # default fallback
@@ -51,7 +57,6 @@ func on_attack_end() -> void:
 
 func _set_hitbox_active(active: bool) -> void:
 	if not hit_box: return
-	hit_box.set_deferred("monitoring", active)
 	var col = hit_box.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if col:
-		col.set_deferred("disabled", not active)
+		col.disabled = not active

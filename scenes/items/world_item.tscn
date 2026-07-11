@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://systems/items/world_item.gd" id="1_worlditem"]
+[ext_resource type="Script" path="res://systems/interaction/interactable.gd" id="2_interactable"]
+[ext_resource type="Script" path="res://systems/items/item_pickup.gd" id="3_pickup"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Terrain/Tileset/Shadow.png" id="4_shadow"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_item"]
+radius = 16.0
+
+[node name="WorldItem" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_worlditem")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.392157)
+position = Vector2(0, 6)
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("4_shadow")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="Interactable" type="Area2D" parent="."]
+script = ExtResource("2_interactable")
+interaction_text = "Pick up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_item")
+
+[node name="ItemPickup" type="Node" parent="."]
+script = ExtResource("3_pickup")
+
+[node name="AmountLabel" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 46.0
+offset_bottom = 27.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "x1"
+

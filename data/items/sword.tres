@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Swords/Swords.png" id="1_lpgsc"]
+[ext_resource type="Script" path="res://data/item_data.gd" id="2_1ml53"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts0ls"]
+atlas = ExtResource("1_lpgsc")
+region = Rect2(0, 0, 64, 64)
+
+[resource]
+script = ExtResource("2_1ml53")
+name = "Sword"
+icon = SubResource("AtlasTexture_ts0ls")

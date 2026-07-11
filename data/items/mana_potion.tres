@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Icons/Icon_05.png" id="1_7t1fh"]
+[ext_resource type="Script" path="res://data/item_data.gd" id="2_145sx"]
+
+[resource]
+script = ExtResource("2_145sx")
+name = "Mana Potion"
+icon = ExtResource("1_7t1fh")

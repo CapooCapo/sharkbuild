@@ -28,5 +28,5 @@ func _ready() -> void:
 	var village_gen := VillageGenerator.new()
 	var spawn_pos := village_gen.generate_village_position(terrain_data, village_data)
 	
-	print("WorldManager: Generation complete.")
+
 	village_generated.emit(spawn_pos)

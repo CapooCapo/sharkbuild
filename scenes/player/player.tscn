@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://d3grqwqxpen2x" path="res://systems/player/player_state_machine.gd" id="6_0owmy"]
 [ext_resource type="Resource" path="res://data/player_data.tres" id="7_qek5x"]
 [ext_resource type="Script" uid="uid://c8a510rq2byu3" path="res://systems/combat/hit_box.gd" id="8_hitbox"]
+[ext_resource type="Script" uid="uid://csg34rnkuwqxa" path="res://systems/combat/hurt_box.gd" id="9_hurtbox"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_75vfm"]
 radius = 6.0
@@ -62,6 +63,9 @@ player_direction = NodePath("../PlayerDirection")
 state_machine = NodePath("../PlayerStateMachine")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=330580815]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("9_hurtbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1165619254]
 position = Vector2(0, -25)

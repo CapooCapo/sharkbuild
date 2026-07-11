@@ -11,9 +11,10 @@ func _ready() -> void:
 		push_warning("EnemyDamageFlash is missing references")
 		return
 		
-	enemy_stats.took_damage.connect(_on_took_damage)
+	if enemy_stats and enemy_stats.has_signal("damage_taken"):
+		enemy_stats.damage_taken.connect(_on_damage_taken)
 
-func _on_took_damage(_amount: int) -> void:
+func _on_damage_taken(_amount: int, _type: int = 0) -> void:
 	if not enemy_stats.is_dead():
 		_play_damage_feedback()
 

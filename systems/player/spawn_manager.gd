@@ -22,5 +22,5 @@ func on_village_generated(spawn_pos: Vector2) -> void:
 			mov.player_data = player_data
 			
 		characters_layer.add_child(player_instance)
-		print("SpawnManager: Player spawned at %s" % spawn_pos)
+
 		player_spawned.emit(player_instance)

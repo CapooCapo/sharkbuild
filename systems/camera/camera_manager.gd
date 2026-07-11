@@ -15,4 +15,4 @@ func set_target(node: Node2D) -> void:
 	target_node = node
 	if camera_2d and target_node:
 		camera_2d.global_position = target_node.global_position
-		print("CameraManager: Target set to %s" % node.name)
+

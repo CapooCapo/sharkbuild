@@ -21,6 +21,7 @@ signal guard_hold
 signal guard_end
 signal perfect_block_window_open
 signal perfect_block_window_close
+signal hit_finished
 
 func _ready() -> void:
 	if not animated_sprite:
@@ -100,6 +101,13 @@ func _setup_animation_player() -> void:
 	_add_method_track(anim_guard, 0.6, "emit_guard_end", [])
 	anim_lib.add_animation("Guard", anim_guard)
 	
+	# Hit (reuse Idle spritesheet with short duration for flinch)
+	var anim_hit = Animation.new()
+	anim_hit.length = 0.3
+	_add_sprite_animation_track(anim_hit, "Warrior_Idle")
+	_add_method_track(anim_hit, 0.3, "emit_hit_finished", [])
+	anim_lib.add_animation("Hit", anim_hit)
+	
 	animation_player.add_animation_library("", anim_lib)
 	animation_player.play("Idle")
 
@@ -169,6 +177,9 @@ func _process(_delta: float) -> void:
 	elif state == sm.State.WALK:
 		if animation_player.current_animation != "Walk":
 			animation_player.play("Walk")
+	elif state == sm.State.HIT:
+		if animation_player.current_animation != "Hit":
+			animation_player.play("Hit")
 	else:
 		if animation_player.current_animation != "Idle":
 			animation_player.play("Idle")
@@ -191,3 +202,4 @@ func emit_guard_hold() -> void: guard_hold.emit()
 func emit_guard_end() -> void: guard_end.emit()
 func emit_perfect_block_window_open() -> void: perfect_block_window_open.emit()
 func emit_perfect_block_window_close() -> void: perfect_block_window_close.emit()
+func emit_hit_finished() -> void: hit_finished.emit()

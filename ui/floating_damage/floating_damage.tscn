@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcxb41q3xwq1j"]
+
+[ext_resource type="Script" path="res://ui/floating_damage/floating_damage.gd" id="1_float_dam"]
+
+[node name="FloatingDamage" type="Node2D"]
+z_index = 100
+script = ExtResource("1_float_dam")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 20.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

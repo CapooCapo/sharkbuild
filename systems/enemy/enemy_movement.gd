@@ -45,15 +45,7 @@ func _physics_process(delta: float) -> void:
 	if knockback and knockback.is_active():
 		return
 		
-	if _wants_to_move and nav_agent:
-		print("--- ENEMY MOVEMENT DEBUG ---")
-		print("Target Pos: ", nav_agent.target_position)
-		print("Is Nav Finished: ", nav_agent.is_navigation_finished())
-		print("Is Target Reachable: ", nav_agent.is_target_reachable())
-		print("Next Path Pos: ", nav_agent.get_next_path_position())
 
-	if _wants_to_move and nav_agent:
-		print("[ENEMY_DEBUG] Has Nav Path: ", not nav_agent.is_navigation_finished(), " My Pos: ", character_body.global_position, " Target: ", nav_agent.target_position, " Next Path: ", nav_agent.get_next_path_position())
 
 	if _wants_to_move and nav_agent and not nav_agent.is_navigation_finished():
 		var next_path_pos = nav_agent.get_next_path_position()

@@ -15,4 +15,4 @@ func generate_navigation(terrain_data: TerrainData) -> void:
 	# In a real scenario with dynamically drawn TileMapLayers inside a Region,
 	# we call bake() to parse the tiles and create the polygon.
 	navigation_region.bake_navigation_polygon()
-	print("NavigationGenerator: Navigation baked.")
+

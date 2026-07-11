@@ -10,13 +10,14 @@
 [ext_resource type="PackedScene" path="res://scenes/buildings/inn.tscn" id="8_hi655"]
 [ext_resource type="PackedScene" path="res://scenes/buildings/dungeongate.tscn" id="9_avsny"]
 [ext_resource type="PackedScene" path="res://scenes/buildings/traininggate.tscn" id="10_w1hgv"]
-[ext_resource type="PackedScene" path="res://scenes/buildings/questboard.tscn" id="11_8prod"]
+[ext_resource type="PackedScene" uid="uid://df7x5h5h3f5h" path="res://scenes/buildings/questboard.tscn" id="11_8prod"]
 [ext_resource type="PackedScene" uid="uid://c3rsad85wlgix" path="res://scenes/npcs/npc_warrior.tscn" id="12_2sa78"]
 [ext_resource type="PackedScene" uid="uid://bpnsjm7vptxve" path="res://scenes/npcs/npc_pawn.tscn" id="13_iupkn"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/Tree1.tscn" id="14_hi655"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/Rock1.tscn" id="15_avsny"]
 [ext_resource type="PackedScene" uid="uid://bfx67041vh45g" path="res://scenes/enemy/enemy.tscn" id="16_enemy"]
-[ext_resource type="Script" uid="uid://navpatch12345" path="res://systems/navigation/village_nav_patch.gd" id="17_nav_patch"]
+[ext_resource type="Script" path="res://systems/navigation/village_nav_patch.gd" id="17_nav_patch"]
+[ext_resource type="Script" path="res://systems/ui/floating_damage_manager.gd" id="20_fdman"]
 
 [sub_resource type="GDScript" id="GDScript_kv1ds"]
 script/source = "extends Node2D
@@ -24,7 +25,7 @@ func _ready():
 	$SpawnManager.on_village_generated($PlayerSpawnLocation.position)
 "
 
-[node name="Village" type="Node2D" unique_id=713300030]
+[node name="Village" type="Node2D" unique_id=987291880]
 y_sort_enabled = true
 script = SubResource("GDScript_kv1ds")
 
@@ -170,6 +171,9 @@ position = Vector2(250, 50)
 [node name="QuestBoard" parent="Buildings" unique_id=524688037 instance=ExtResource("11_8prod")]
 y_sort_enabled = true
 position = Vector2(0, -50)
+
+[node name="FloatingDamageManager" type="Node" parent="." unique_id=987654322]
+script = ExtResource("20_fdman")
 
 [connection signal="player_spawned" from="SpawnManager" to="CameraManager" method="set_target"]
 

@@ -26,6 +26,14 @@ func _ready() -> void:
 	cc.character_stats = stats
 	add_child(cc)
 	
+	# Instantiate DamageReceiver
+	var dr: DamageReceiver = DamageReceiver.new()
+	dr.name = "DamageReceiver"
+	dr.hurt_box = $HurtBox
+	dr.character_stats = stats
+	dr.state_machine = $PlayerStateMachine
+	add_child(dr)
+	
 	# Configure HitBox
 	var hit_box = $HitBox
 	if hit_box and "damage_amount" in hit_box:
@@ -38,6 +46,7 @@ func _ready() -> void:
 		# Connect to Combat Controller and Movement
 		anim.attack_hit.connect(cc.on_attack_hit_start)
 		anim.attack_end.connect(cc.on_attack_end)
+		anim.hit_finished.connect(dr.on_hit_finished)
 		
 		if movement:
 			anim.roll_end.connect(movement.on_roll_end)
@@ -47,6 +56,26 @@ func _ready() -> void:
 	hud.name = "PlayerHUD"
 	add_child(hud)
 	hud.initialize(stats)
+	
+	# Instantiate DamagePresenter
+	var damage_presenter = DamagePresenter.new()
+	damage_presenter.name = "DamagePresenter"
+	damage_presenter.stats_node = stats
+	damage_presenter.entity_node = self
+	damage_presenter.damage_manager = get_tree().get_first_node_in_group("damage_manager")
+	add_child(damage_presenter)
+	
+	# Instantiate Inventory
+	var inventory = Inventory.new()
+	inventory.name = "Inventory"
+	add_child(inventory)
+	
+	# Instantiate GameMenu inside HUD (or directly on Player)
+	var menu_scene = preload("res://ui/game_menu/game_menu.tscn")
+	if menu_scene:
+		var menu = menu_scene.instantiate() as GameMenu
+		menu.inventory = inventory
+		add_child(menu)
 
 
 func _unhandled_input(event: InputEvent) -> void:

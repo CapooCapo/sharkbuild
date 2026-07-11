@@ -18,6 +18,7 @@ extends Resource
 
 @export_group("Rewards")
 @export var exp_reward: int = 25
+@export var loot_table: LootTable
 
 @export_group("AI")
 @export var detection_radius: float = 160.0

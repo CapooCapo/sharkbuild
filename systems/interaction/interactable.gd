@@ -14,5 +14,5 @@ func _ready() -> void:
 	set_collision_layer_value(3, true)
 
 func interact(interactor: Node) -> void:
-	print("Interactable: Triggered by %s. Response: %s" % [interactor.name, interaction_text])
+
 	interacted.emit(interactor)

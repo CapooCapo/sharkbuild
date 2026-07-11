@@ -27,6 +27,19 @@ func _ready() -> void:
 	if enemy_stats:
 		enemy_stats.died.connect(_on_died)
 
+func _process(_delta: float) -> void:
+	if not state_machine:
+		return
+		
+	var sm = state_machine
+	var state = sm.current_state
+	
+	# Clean up HitBox if attack is interrupted
+	if state != sm.State.ATTACK and hit_box:
+		var col = hit_box.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if col and not col.disabled:
+			_set_hitbox_active(false)
+
 func _on_hit_received(payload: DamagePayload) -> void:
 	if not enemy_stats or enemy_stats.is_dead() or enemy_stats.invulnerable:
 		return
@@ -92,10 +105,9 @@ func on_hit_finished() -> void:
 
 func _set_hitbox_active(active: bool) -> void:
 	if not hit_box: return
-	hit_box.set_deferred("monitoring", active)
 	var col = hit_box.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if col:
-		col.set_deferred("disabled", not active)
+		col.disabled = not active
 
 func _disable_all_collision() -> void:
 	# Disable hurtbox

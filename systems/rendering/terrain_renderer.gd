@@ -33,4 +33,4 @@ func render(data: TerrainData) -> void:
 		# Objects and Decorations can be painted here in the future based on data.
 		ground_layer.set_cell(coord, 0, atlas_coord)
 		
-	print("TerrainRenderer: Rendering complete.")
+
