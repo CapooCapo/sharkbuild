@@ -1,17 +1,13 @@
 class_name CharacterStats
-extends Node
+extends BaseStats
 
-signal hp_changed(current: int, max: int)
 signal mana_changed(current: int, max: int)
 signal stamina_changed(current: float, max: float)
 signal exp_changed(current: int, required: int)
 signal level_changed(current: int)
 signal player_dead
-signal damage_taken(amount: int, type: int)
 
 @export var player_data: PlayerData
-
-var current_hp: int = 0
 var current_mana: int = 0
 var current_stamina: float = 0.0
 var current_exp: int = 0
@@ -23,7 +19,9 @@ func _ready() -> void:
 	if not player_data:
 		return
 		
-	current_hp = player_data.max_hp
+	max_hp = player_data.max_hp
+	current_hp = max_hp
+	alive = true
 	current_mana = player_data.max_mana
 	current_stamina = player_data.max_stamina
 	current_exp = player_data.starting_exp
@@ -32,6 +30,7 @@ func _ready() -> void:
 	_emit_all_signals()
 
 func _process(delta: float) -> void:
+	super._process(delta)
 	if not player_data or is_dead():
 		return
 		
@@ -64,26 +63,14 @@ func restore_mana(amount: int) -> void:
 	current_mana = mini(current_mana + amount, player_data.max_mana)
 	mana_changed.emit(current_mana, player_data.max_mana)
 
-func heal(amount: int) -> void:
-	if is_dead(): return
-	current_hp = mini(current_hp + amount, player_data.max_hp)
-	hp_changed.emit(current_hp, player_data.max_hp)
-
-func damage(amount: int, type: int = DamageType.Type.NORMAL) -> void:
-	if is_dead(): return
-	var actual_damage = mini(current_hp, amount)
-	current_hp = maxi(current_hp - amount, 0)
-	hp_changed.emit(current_hp, player_data.max_hp)
-	damage_taken.emit(actual_damage, type)
+func damage(amount: int, type: int = 0) -> void: # 0 is DamageType.Type.NORMAL
+	super.damage(amount, type)
 	if is_dead():
 		player_dead.emit()
 
 func full_heal() -> void:
 	if is_dead(): return
 	heal(player_data.max_hp)
-
-func is_dead() -> bool:
-	return current_hp <= 0
 
 func add_exp(amount: int) -> void:
 	if is_dead(): return

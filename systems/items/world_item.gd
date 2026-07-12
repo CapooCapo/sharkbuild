@@ -14,8 +14,11 @@ var _start_y: float = 0.0
 func _ready() -> void:
 	_start_y = position.y
 	
-	if item_data and sprite:
-		sprite.texture = item_data.icon
+	if item_data:
+		if not item_data.icon:
+			push_warning("Missing icon for ItemData: ", item_data.name)
+		else:
+			sprite.texture = item_data.icon
 		
 	if amount_label:
 		if amount > 1:
@@ -41,7 +44,4 @@ func pickup(inventory: Inventory) -> bool:
 		return true
 	return false
 
-func _process(delta: float) -> void:
-	_time += delta * 2.0
-	# Floating animation
-	sprite.position.y = sin(_time) * 4.0
+

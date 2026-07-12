@@ -41,15 +41,18 @@ func _on_enemy_died() -> void:
 		var world_item = world_item_scene.instantiate() as WorldItem
 		world_item.initialize(item_data, amount)
 		
-		# Spawn at the enemy's global position with scatter
 		var entity = owner as Node2D
+		var spawn_pos = Vector2.ZERO
 		if entity:
-			var offset = Vector2(randf_range(-16.0, 16.0), randf_range(-16.0, 16.0))
-			world_item.global_position = entity.global_position + offset
+			var offset = Vector2(randf_range(-8.0, 8.0), randf_range(-8.0, 8.0)) if results.size() > 1 else Vector2.ZERO
+			spawn_pos = entity.global_position + offset
 			
 		# Add to the main scene tree
 		var current_scene = get_tree().current_scene
 		if current_scene:
-			if DEBUG_LOOT:
-				print("[LOOT] Spawned: ", item_data.name)
+			world_item.global_position = spawn_pos
 			current_scene.call_deferred("add_child", world_item)
+			if DEBUG_LOOT:
+				print("--------------------------------\nEnemy Position:\n", entity.global_position if entity else Vector2.ZERO, "\nSpawn Position:\n", spawn_pos, "\nItem:\n", item_data.name, "\nIcon:\n", item_data.icon.resource_path if item_data.icon else "NULL", "\n--------------------------------")
+				if not item_data.icon:
+					print("[ERROR]\nItemData icon is NULL")

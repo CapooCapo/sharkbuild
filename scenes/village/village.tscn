@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://sy8gwyq1fqkx"]
 
 [ext_resource type="Script" uid="uid://bg8k4giaryhto" path="res://systems/player/spawn_manager.gd" id="1_vlpiw"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_it25y"]
+[ext_resource type="PackedScene" uid="uid://bt1mqf84tbu2p" path="res://scenes/player/player.tscn" id="2_it25y"]
 [ext_resource type="Resource" path="res://data/player_data.tres" id="3_67sdw"]
 [ext_resource type="Script" uid="uid://duqelfoswk4pw" path="res://systems/camera/camera_manager.gd" id="4_62oey"]
 [ext_resource type="TileSet" uid="uid://bqt6r0lhsfbkb" path="res://tilesets/tiny_swords_tileset.tres" id="5_xp181"]
@@ -10,14 +10,14 @@
 [ext_resource type="PackedScene" path="res://scenes/buildings/inn.tscn" id="8_hi655"]
 [ext_resource type="PackedScene" path="res://scenes/buildings/dungeongate.tscn" id="9_avsny"]
 [ext_resource type="PackedScene" path="res://scenes/buildings/traininggate.tscn" id="10_w1hgv"]
-[ext_resource type="PackedScene" uid="uid://df7x5h5h3f5h" path="res://scenes/buildings/questboard.tscn" id="11_8prod"]
+[ext_resource type="PackedScene" path="res://scenes/buildings/questboard.tscn" id="11_8prod"]
 [ext_resource type="PackedScene" uid="uid://c3rsad85wlgix" path="res://scenes/npcs/npc_warrior.tscn" id="12_2sa78"]
 [ext_resource type="PackedScene" uid="uid://bpnsjm7vptxve" path="res://scenes/npcs/npc_pawn.tscn" id="13_iupkn"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/Tree1.tscn" id="14_hi655"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/Rock1.tscn" id="15_avsny"]
 [ext_resource type="PackedScene" uid="uid://bfx67041vh45g" path="res://scenes/enemy/enemy.tscn" id="16_enemy"]
-[ext_resource type="Script" path="res://systems/navigation/village_nav_patch.gd" id="17_nav_patch"]
-[ext_resource type="Script" path="res://systems/ui/floating_damage_manager.gd" id="20_fdman"]
+[ext_resource type="Script" uid="uid://dragurm676drx" path="res://systems/navigation/village_nav_patch.gd" id="17_nav_patch"]
+[ext_resource type="Script" uid="uid://da0jrd8k42svt" path="res://systems/ui/floating_damage_manager.gd" id="20_fdman"]
 
 [sub_resource type="GDScript" id="GDScript_kv1ds"]
 script/source = "extends Node2D
@@ -175,7 +175,7 @@ position = Vector2(0, -50)
 [node name="FloatingDamageManager" type="Node" parent="." unique_id=987654322]
 script = ExtResource("20_fdman")
 
-[connection signal="player_spawned" from="SpawnManager" to="CameraManager" method="set_target"]
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=554773919]
 script = ExtResource("17_nav_patch")
+
+[connection signal="player_spawned" from="SpawnManager" to="CameraManager" method="set_target"]

@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" path="res://assets/Tiny Swords (Free Pack)/Terrain/Tileset/Shadow.png" id="4_shadow"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_item"]
-radius = 16.0
+radius = 12.0
 
 [node name="WorldItem" type="Node2D"]
-scale = Vector2(2, 2)
+z_index = 5
 script = ExtResource("1_worlditem")
 
 [node name="Shadow" type="Sprite2D" parent="."]
